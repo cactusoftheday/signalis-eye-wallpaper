@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./style.css">
+        <script type="text/javascript" src="jquery-3.6.3.min.js"></script>
+    </head>
+    <body>
+        
+        <input type="range" min = "1" max = "600" value = "50" id = "top" class = "slider"/>
+        <input type="range" min = "1" max = "600" value = "50" id = "left" class = "slider"/>
+        <div id="container">
+            <img id="eyewhite" src="./assets/eyecloseup_eyeWhite.png"></img>
+            <img id="face" src="./assets/eyecloseup_face.png" opacity = "0.0"></img>
+            <img id="eyeShine" src="./assets/eyecloseup_shine.png"></img>
+        </div>
+        
+        <canvas id="boundary"></canvas>
+        <script type="text/javascript" src="./script.js"></script>
+    </body>
+</html>
