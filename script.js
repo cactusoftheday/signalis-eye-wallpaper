@@ -23,8 +23,8 @@ let topOffset = 0
 canvas.style.top = topOffset + "px";
 
 // Calculate center of boundary
-const boundaryCenterX = boundaryX + boundaryWidth / 2-310;
-const boundaryCenterY = boundaryY + boundaryHeight / 2 + topOffset + 60;
+const boundaryCenterX = boundaryX + boundaryWidth / 2-335;
+const boundaryCenterY = boundaryY + boundaryHeight / 2 + topOffset + 5;
 
 // Set up variables for image position
 let imageX = boundaryCenterX;
@@ -34,10 +34,10 @@ let reflectX = boundaryCenterX + 30 + 10;
 let reflectY = boundaryCenterY - 30 - 7;
 
 // Add event listener to track mouse position
-window.scrollTo({top:300,left: 30, behavior: 'smooth'});
+window.scrollTo({top:400,left: 30, behavior: 'smooth'});
 canvas.addEventListener("mousemove", (e) => {
     let mouseX = (e.clientX-327);
-    let mouseY = (e.clientY-40);
+    let mouseY = (e.clientY-60);
 
     // Calculate distance between mouse and boundary center
     const distanceX = mouseX - boundaryCenterX;
