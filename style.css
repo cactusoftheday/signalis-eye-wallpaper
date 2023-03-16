@@ -33,13 +33,13 @@ body,
 canvas {
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
+    height: 170%;
+    width: 170%;
     z-index: 10;
 }
 body{
     background-color: #000;
-    zoom: 100%;
+    zoom: 170%;
     overflow:hidden;
 }
 #boundary{
@@ -47,8 +47,8 @@ body{
     top: 150;
     left: 0;
     z-index: 100;
-    height: 100%;
-    width: 100%;
+    height: 175%;
+    width: 175%;
 }
 #eyeShine{
     position: absolute;

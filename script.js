@@ -14,8 +14,8 @@ const eyeReflect = new Image();
 eyeReflect.src = "./assets/eyecloseup_pupil_reflect_side.png";
 image.id = "reflect";
 
-const boundaryWidth = 250/1.3;
-const boundaryHeight = 200/2.5;
+const boundaryWidth = 250/1.2;
+const boundaryHeight = 200/2.4;
 const boundaryX = canvas.width / 2 - boundaryWidth / 2;
 const boundaryY = canvas.height / 2 - boundaryHeight / 2;
 
@@ -23,8 +23,8 @@ let topOffset = 0
 canvas.style.top = topOffset + "px";
 
 // Calculate center of boundary
-const boundaryCenterX = boundaryX + boundaryWidth / 2-350;
-const boundaryCenterY = boundaryY + boundaryHeight / 2 + topOffset + 77;
+const boundaryCenterX = boundaryX + boundaryWidth / 2-310;
+const boundaryCenterY = boundaryY + boundaryHeight / 2 + topOffset + 60;
 
 // Set up variables for image position
 let imageX = boundaryCenterX;
@@ -34,9 +34,10 @@ let reflectX = boundaryCenterX + 30 + 10;
 let reflectY = boundaryCenterY - 30 - 7;
 
 // Add event listener to track mouse position
+window.scrollTo({top:300,left: 30, behavior: 'smooth'});
 canvas.addEventListener("mousemove", (e) => {
-    let mouseX = (e.clientX);
-    let mouseY = (e.clientY);
+    let mouseX = (e.clientX-327);
+    let mouseY = (e.clientY-40);
 
     // Calculate distance between mouse and boundary center
     const distanceX = mouseX - boundaryCenterX;
@@ -46,8 +47,8 @@ canvas.addEventListener("mousemove", (e) => {
     // Check if mouse is inside boundary
     if (
     distanceX ** 2 / (boundaryWidth / 2) ** 2 +
-        distanceY ** 2 / (boundaryHeight / 2) ** 2 <= 1
-    ) {
+        distanceY ** 2 / (boundaryHeight / 2) ** 2 <= 1.1
+    ) {// give some leeway so the eye doesn't snap to boundary
     // Move image to mouse position
     imageX = mouseX;
     imageY = mouseY;
