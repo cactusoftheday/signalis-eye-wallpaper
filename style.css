@@ -1,6 +1,6 @@
 #container {
     position: absolute;;
-    top: 150;
+    top: 0;
     left: 0;
 }
 #eyewhite {
@@ -15,6 +15,13 @@
     top: 0;
     left: 0;
     z-index: 300;
+    pointer-events: none;
+}
+#hair{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500;
     pointer-events: none;
 }
 .slider{
@@ -32,6 +39,8 @@ canvas {
 }
 body{
     background-color: #000;
+    zoom: 100%;
+    overflow:hidden;
 }
 #boundary{
     position: absolute;
@@ -43,6 +52,19 @@ body{
 }
 #eyeShine{
     position: absolute;
-    z-index: 500;
+    z-index: 401;
     pointer-events: none;
+    top: 180px;
+    left: 179px;
+}
+#eyeLid{
+    position: absolute;
+    z-index: 410;
+    width: 700px;
+    height: 500px;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    background-size: contain;
+    top: 295px;
+    left: 207px;
 }

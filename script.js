@@ -10,43 +10,58 @@ const image = new Image();
 image.src = "./assets/eyecloseup_pupil_sclera.png";
 image.id = "pupil_sclera";
 
-const boundaryWidth = 250/1.7;
-const boundaryHeight = 200/1.7;
+const eyeReflect = new Image();
+eyeReflect.src = "./assets/eyecloseup_pupil_reflect_side.png";
+image.id = "reflect";
+
+const boundaryWidth = 250/1.3;
+const boundaryHeight = 200/2.5;
 const boundaryX = canvas.width / 2 - boundaryWidth / 2;
 const boundaryY = canvas.height / 2 - boundaryHeight / 2;
 
+let topOffset = 0
+canvas.style.top = topOffset + "px";
+
 // Calculate center of boundary
-const boundaryCenterX = boundaryX + boundaryWidth / 2;
-const boundaryCenterY = boundaryY + boundaryHeight / 2;
+const boundaryCenterX = boundaryX + boundaryWidth / 2-350;
+const boundaryCenterY = boundaryY + boundaryHeight / 2 + topOffset + 77;
 
 // Set up variables for image position
 let imageX = boundaryCenterX;
 let imageY = boundaryCenterY;
 
+let reflectX = boundaryCenterX + 30 + 10;
+let reflectY = boundaryCenterY - 30 - 7;
+
 // Add event listener to track mouse position
 canvas.addEventListener("mousemove", (e) => {
+    let mouseX = (e.clientX);
+    let mouseY = (e.clientY);
+
     // Calculate distance between mouse and boundary center
-    const distanceX = e.clientX - boundaryCenterX;
-    const distanceY = e.clientY - boundaryCenterY-70-70;
+    const distanceX = mouseX - boundaryCenterX;
+    const distanceY = mouseY - boundaryCenterY;
     const distanceFromCenter = Math.sqrt(distanceX ** 2 + distanceY ** 2);
 
     // Check if mouse is inside boundary
     if (
     distanceX ** 2 / (boundaryWidth / 2) ** 2 +
-        distanceY ** 2 / (boundaryHeight / 2) ** 2 <=
-    1
+        distanceY ** 2 / (boundaryHeight / 2) ** 2 <= 1
     ) {
     // Move image to mouse position
-    imageX = e.clientX;
-    imageY = e.clientY-70-70;
+    imageX = mouseX;
+    imageY = mouseY;
     image.style.zIndex = 10;
-    
+    reflectX = mouseX + 30 + 10 + 4;
+    reflectY = mouseY - 30 - 4;
     
     } else {
     // Move image back to center of boundary
     const angle = Math.atan2(distanceY, distanceX);
     imageX = boundaryCenterX + (boundaryWidth / 2) * Math.cos(angle);
     imageY = boundaryCenterY + (boundaryHeight / 2) * Math.sin(angle);
+    reflectX = boundaryCenterX + (boundaryWidth / 2) * Math.cos(angle)+ 30 + 10;
+    reflectY = boundaryCenterY + (boundaryHeight / 2) * Math.sin(angle)-30 - 7;
     image.style.zIndex = 10;
     }
 });
@@ -57,7 +72,7 @@ setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw boundary
-    ctx.beginPath();
+    /*ctx.beginPath();
     ctx.ellipse(
     boundaryCenterX,
     boundaryCenterY,
@@ -67,7 +82,7 @@ setInterval(() => {
     0,
     Math.PI * 2
     );
-    ctx.stroke();
+    ctx.stroke();*/
 
     // Draw image
     ctx.drawImage(
@@ -76,11 +91,13 @@ setInterval(() => {
     imageY - image.height / 2
     );
     image.setAttribute("id", "pupil_sclera");
-$('pupil_sclera').css("zindex", "100");
-    console.log(imageX, imageY);
+    $('pupil_sclera').css("zindex", "100");
+    ctx.drawImage(eyeReflect, reflectX - eyeReflect.width/2, reflectY - eyeReflect.height/2);
+    eyeReflect.setAttribute("id", "reflect");
+    $('reflect').css("zindex", "101");
 
 }, 1000 / 60);
-
+/*
 const resize = document.getElementById('eyeShine');
 const xSlider = document.getElementById('left');
 const ySlider = document.getElementById('top');
@@ -92,4 +109,39 @@ function updateImagePosition() {
 }
 
 xSlider.addEventListener('input', updateImagePosition);
-ySlider.addEventListener('input', updateImagePosition);
+ySlider.addEventListener('input', updateImagePosition);*/
+
+var eye = document.getElementById("eyeLid");
+var images = ["./assets/eyecloseup_lid_open(3).png", "./assets/eyecloseup_lid_closing(2).png", "./assets/eyecloseup_lid_closed(1).png"]; // Array of images
+var currentState = 0;
+var reverse = false;
+
+// Define a function that updates the eye image
+function updateImage() {
+    if (currentState === images.length - 1) {
+        reverse = true; // Reverse the animation if the last image is reached
+    } else if (currentState === 0) {
+        reverse = false; // Reset the animation if the first image is reached again
+    }
+
+    if (!reverse) {
+        currentState++;
+        
+    } else {
+        currentState--;
+    }
+
+    if(currentState == 2){
+        setTimeout(function(){}, 1);
+    }
+
+    eye.style.backgroundImage = "url('" + images[currentState] + "')";
+    $('eyeLid').css("zindex","411");
+}
+setInterval( function() {
+    var nestedInterval = setInterval(updateImage, 80);
+
+    setTimeout(function () {
+        clearInterval(nestedInterval);
+    }, 640);
+},10000);
